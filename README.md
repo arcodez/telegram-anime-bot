@@ -1,4 +1,4 @@
-# Dolar Checker Serial
+# Anime Info Telegram
 
 Created By Abel
 
