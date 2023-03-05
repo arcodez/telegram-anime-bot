@@ -33,26 +33,55 @@ bot.command('ecchi', (ctx) => {
 
 bot.command('hentai', async (ctx) => {
   try {
-    const response = await axios.get('https://g6hentai.com/photos_channels/1/hentai/')
+    const response = await axios.get('https://www.hentaicloud.com/gallery/hentai')
     const $ = cheerio.load(response.data)
     const images = $('img')
     const imageUrls = []
     images.each((index, element) => {
-        const imageUrl = $(element).attr('src')
-        imageUrls.push(imageUrl)
+      const imageUrl = $(element).attr('src')
+      imageUrls.push(imageUrl)
+
     })
 
     const randomNumber = Math.floor(Math.random() * imageUrls.length)
-    console.log(imageUrls[randomNumber])
-    ctx.replyWithPhoto({url: imageUrls[randomNumber]})
+    console.log(`${imageUrls[randomNumber].split('/').slice(1)[3]}`)
+    ctx.replyWithPhoto({ url: `https://www.hentaicloud.com/media/photos/${imageUrls[randomNumber].split('/').slice(1)[3]}` })
+    // ctx.replyWithPhoto({url: `https://www.hentaicloud.com/gallery/hentai${imageUrls[randomNumber]}`})
 
-} catch (error) {
+  } catch (error) {
 
     console.log(error)
-}
+    ctx.reply('Intenta de Nuevo')
+  }
 
 
 })
+
+/* bot.command('hentaigifs', async (ctx) => {
+  try {
+    const response = await axios.get('https://www.hentaicloud.com/gifs')
+    const $ = cheerio.load(response.data)
+    const images = $('img')
+    const imageUrls = []
+    images.each((index, element) => {
+      const imageUrl = $(element).attr('src')
+      imageUrls.push(imageUrl)
+
+    })
+
+    const randomNumber = Math.floor(Math.random() * imageUrls.length)
+    console.log(`${imageUrls[randomNumber].split('/').slice(1)[4]}`)
+    console.log(imageUrls)
+    const gif = imageUrls[randomNumber].split('/').slice(1)[4]
+    ctx.replyWithAnimation(`https://www.hentaicloud.com/media/gif/${gif}`)
+    // ctx.replyWithPhoto({url: `https://www.hentaicloud.com/gallery/hentai${imageUrls[randomNumber]}`})
+
+  } catch (error) {
+
+  console.log(error)
+  ctx.reply('Intenta de Nuevo')
+}
+}) */
 
 bot.command('yuri', (ctx) => {
   ctx.replyWithPhoto({ url: yuriImage })
@@ -87,6 +116,13 @@ bot.command('anime', async (ctx) => {
   }
 })
 
+bot.command('gif', (ctx) => {
+  ctx.replyWithAnimation('https://www.hentaicloud.com/media/gif/3/3405.webp');
+});
+
+bot.command('archivo', (ctx) => {
+  ctx.replyWithDocument({ url: 'https://www.hentaicloud.com/media/gif/3/3405.webp' });
+});
 
 
 bot.launch();
