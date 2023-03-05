@@ -44,8 +44,13 @@ bot.command('hentai', async (ctx) => {
     })
 
     const randomNumber = Math.floor(Math.random() * imageUrls.length)
-    console.log(`${imageUrls[randomNumber].split('/').slice(1)[3]}`)
-    ctx.replyWithPhoto({ url: `https://www.hentaicloud.com/media/photos/${imageUrls[randomNumber].split('/').slice(1)[3]}` })
+    const ImageH = imageUrls[randomNumber].split('/').slice(1)[3]
+    console.log(ImageH)
+
+    if (ImageH !== undefined && ImageH !== 'img') {
+      ctx.replyWithPhoto({ url: `https://www.hentaicloud.com/media/photos/${imageUrls[randomNumber].split('/').slice(1)[3]}` })
+
+    }
     // ctx.replyWithPhoto({url: `https://www.hentaicloud.com/gallery/hentai${imageUrls[randomNumber]}`})
 
   } catch (error) {
@@ -116,13 +121,13 @@ bot.command('anime', async (ctx) => {
   }
 })
 
-bot.command('gif', (ctx) => {
+/* bot.command('gif', (ctx) => {
   ctx.replyWithAnimation('https://www.hentaicloud.com/media/gif/3/3405.webp');
 });
 
 bot.command('archivo', (ctx) => {
   ctx.replyWithDocument({ url: 'https://www.hentaicloud.com/media/gif/3/3405.webp' });
 });
-
+ */
 
 bot.launch();
